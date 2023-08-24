@@ -1,7 +1,11 @@
 name: flutter_pdf_kit
-description: A new Flutter project.
-version: 0.0.1
-homepage:
+description: Widgets and useful tools based on native PDFKit on iOS and macOS
+version: 0.0.1+alpha
+homepage: https://github.com/nikolaydymura/flutter_pdf_kit
+repository: https://github.com/nikolaydymura/flutter_pdf_kit
+platforms:
+  ios:
+  macos:
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
