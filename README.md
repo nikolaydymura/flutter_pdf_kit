@@ -1,15 +1,28 @@
-# flutter_pdf_kit
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
 
-A new Flutter project.
+<p align="center">
+<a href="https://pub.dev/packages/flutter_pdf_kit"><img src="https://img.shields.io/pub/v/flutter_pdf_kit" alt="Pub"></a>
+<a href="https://github.com/nikolaydymura/flutter_pdf_kit/actions"><img src="https://github.com/nikolaydymura/flutter_pdf_kit/actions/workflows/flutter_pdf_kit.yaml/badge.svg" alt="build"></a>
+<a href="https://github.com/nikolaydymura/flutter_pdf_kit"><img src="https://img.shields.io/github/stars/nikolaydymura/flutter_pdf_kit.svg?style=flat&logo=github&colorB=deeppink&label=stars" alt="Star on Github"></a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-purple.svg" alt="License: MIT"></a>
+</p>
 
-## Getting Started
+A flutter package for iOS and MacOS for applying CoreImage filters to image.
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## Usage
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Display PDF document
 
+```dart
+import 'package:flutter_pdf_kit/flutter_pdf_kit.dart';
+
+class PdfViewDemo extends StatelessWidget {
+  const PdfViewDemo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const CupertinoPdfView.asset('assets/dummy.pdf');
+  }
+}
+
+```
