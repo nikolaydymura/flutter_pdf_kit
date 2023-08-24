@@ -6,11 +6,10 @@ pigeons/
 test/
 *.iml
 GoldenDemo/
-example/images
+example/assets
 example/integration_test
 example/ios
 example/macos
-example/videos
 example/pubspec.yaml
 example/README.md
 example/analysis_options.yaml
