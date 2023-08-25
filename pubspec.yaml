@@ -1,6 +1,6 @@
 name: flutter_pdf_kit
 description: Widgets and useful tools based on native PDFKit on iOS and macOS
-version: 0.0.1+alpha
+version: 0.0.2+alpha
 homepage: https://github.com/nikolaydymura/flutter_pdf_kit
 repository: https://github.com/nikolaydymura/flutter_pdf_kit
 platforms:
@@ -8,8 +8,8 @@ platforms:
   macos:
 
 environment:
-  sdk: '>=3.0.6 <4.0.0'
-  flutter: ">=3.3.0"
+  sdk: ">=2.19.0 <3.0.0"
+  flutter: ">=3.7.0"
 
 dependencies:
   flutter:
