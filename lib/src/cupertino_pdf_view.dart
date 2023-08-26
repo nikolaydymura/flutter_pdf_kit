@@ -8,16 +8,17 @@ class CupertinoPdfView extends StatelessWidget {
   final String? asset;
   final File? file;
   final Uri? uri;
+  final void Function(CupertinoPdfViewController controller)? onReady;
 
-  const CupertinoPdfView.asset(this.asset, {super.key})
+  const CupertinoPdfView.asset(this.asset, {super.key, this.onReady})
       : file = null,
         uri = null;
 
-  const CupertinoPdfView.file(this.file, {super.key})
+  const CupertinoPdfView.file(this.file, {super.key, this.onReady})
       : asset = null,
         uri = null;
 
-  const CupertinoPdfView.network(this.uri, {super.key})
+  const CupertinoPdfView.network(this.uri, {super.key, this.onReady})
       : asset = null,
         file = null;
 
@@ -38,10 +39,28 @@ class CupertinoPdfView extends StatelessWidget {
           layoutDirection: TextDirection.ltr,
           creationParams: creationParams,
           creationParamsCodec: const StandardMessageCodec(),
+          onPlatformViewCreated: (int id) {
+            onReady?.call(CupertinoPdfViewController._(id));
+          },
         );
       default:
         return Text(
             '$defaultTargetPlatform is not yet supported by the flutter_pdf_kit plugin');
     }
+  }
+}
+
+class CupertinoPdfViewController {
+  final MethodChannel _channel;
+
+  CupertinoPdfViewController._(int id)
+      : _channel = MethodChannel('PDFViewController__$id');
+
+  Future<void> goToPage(int i) async {
+    await _channel.invokeMethod('goToPage', i);
+  }
+
+  Future<void> dispose() async {
+    await _channel.invokeMethod('dispose');
   }
 }

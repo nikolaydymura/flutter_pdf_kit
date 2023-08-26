@@ -46,6 +46,8 @@ class PDFViewFactory: NSObject, FlutterPlatformViewFactory {
 
 class PDFViewNative : NSObject, FlutterPlatformView {
     private let _view: PDFView
+    private var _pdfDocument: PDFDocument?
+    private let _channel: FlutterMethodChannel
 
     init(
             frame: CGRect,
@@ -53,18 +55,40 @@ class PDFViewNative : NSObject, FlutterPlatformView {
             path: URL,
             binaryMessenger messenger: FlutterBinaryMessenger?
         ) {
+            _channel = FlutterMethodChannel(name: "PDFViewController__\(viewId)", binaryMessenger: messenger!)
+            _pdfDocument = PDFDocument(url: path)
             _view = PDFView(frame: frame)
             _view.autoScales = true
             _view.pageBreakMargins = UIEdgeInsets.init(top: 10, left: 4, bottom: 10, right: 4)
-            _view.document = PDFDocument(url: path)
+            _view.document = _pdfDocument
             
             super.init()
-            // iOS views can be created here
+            
+            _channel.setMethodCallHandler(handle(call:result:))
         }
 
         func view() -> UIView {
             return _view
         }
+    
+    private func handle(call: FlutterMethodCall, result: @escaping FlutterResult) {
+        if call.method == "goToPage"  {
+            guard let pageIndex = call.arguments as? Int else {
+                result(FlutterError(code: "flutter_pdf_kit", message: "Invalid page index argument", details: nil))
+                return
+            }
+            goToPage(index: pageIndex)
+            result(nil)
+        }
+        result(FlutterMethodNotImplemented)
+    }
+    
+    func goToPage(index: Int) {
+        guard let page = _pdfDocument?.page(at: index) else {
+            return
+        }
+        _view.go(to: page)
+    }
 }
 
 

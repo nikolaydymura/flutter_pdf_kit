@@ -13,10 +13,20 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+const _asset =
+    String.fromEnvironment('DEMO_PDF', defaultValue: 'assets/dummy.pdf');
+
 class _MyAppState extends State<MyApp> {
+  CupertinoPdfViewController? controller;
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
   }
 
   @override
@@ -26,7 +36,18 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(
             title: const Text('Plugin example app'),
           ),
-          body: const CupertinoPdfView.asset('assets/dummy.pdf')),
+          floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.arrow_forward),
+            onPressed: () {
+              controller?.goToPage(20);
+            },
+          ),
+          body: CupertinoPdfView.asset(
+            _asset,
+            onReady: (c) {
+              controller = c;
+            },
+          )),
     );
   }
 }
