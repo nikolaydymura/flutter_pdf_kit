@@ -80,6 +80,23 @@ class PDFViewNative : NSObject, FlutterPlatformView {
             goToPage(index: pageIndex)
             result(nil)
         }
+        if call.method == "goToPreviousPage"  {
+            var currentPageIndex = _pdfDocument!.index(for: _view.currentPage!) as Int
+            var pageIndex = currentPageIndex - 1 as Int
+            
+            
+            goToPage(index: pageIndex)
+            result(nil)
+        }
+        if call.method == "goToNextPage"  {
+            var currentPageIndex = _pdfDocument!.index(for: _view.currentPage!) as Int
+            var pageIndex = currentPageIndex + 1 as Int
+            
+            
+            goToPage(index: pageIndex)
+            result(nil)
+        }
+        
         result(FlutterMethodNotImplemented)
     }
     
