@@ -61,6 +61,7 @@ class PDFViewNative : NSObject, FlutterPlatformView {
             _view.autoScales = true
             _view.pageBreakMargins = UIEdgeInsets.init(top: 10, left: 4, bottom: 10, right: 4)
             _view.document = _pdfDocument
+            _view.displayMode = .singlePage
             
             super.init()
             
