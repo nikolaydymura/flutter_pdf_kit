@@ -62,11 +62,12 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
           body: CupertinoPdfView.asset(
-            _asset,
-            onReady: (c) {
-              controller = c;
-            },
-          )),
+          _asset,
+          onReady: (c) {
+            controller = c;
+          },
+        ),
+      ),
     );
   }
 }
