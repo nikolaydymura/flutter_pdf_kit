@@ -61,6 +61,7 @@ class PDFViewNative : NSObject, FlutterPlatformView {
             _view.autoScales = true
             _view.pageBreakMargins = UIEdgeInsets.init(top: 10, left: 4, bottom: 10, right: 4)
             _view.document = _pdfDocument
+            _view.displayMode = .singlePage
             
             super.init()
             
@@ -80,6 +81,23 @@ class PDFViewNative : NSObject, FlutterPlatformView {
             goToPage(index: pageIndex)
             result(nil)
         }
+        if call.method == "goToPreviousPage"  {
+            var currentPageIndex = _pdfDocument!.index(for: _view.currentPage!) as Int
+            var pageIndex = currentPageIndex - 1 as Int
+            
+            
+            goToPage(index: pageIndex)
+            result(nil)
+        }
+        if call.method == "goToNextPage"  {
+            var currentPageIndex = _pdfDocument!.index(for: _view.currentPage!) as Int
+            var pageIndex = currentPageIndex + 1 as Int
+            
+            
+            goToPage(index: pageIndex)
+            result(nil)
+        }
+        
         result(FlutterMethodNotImplemented)
     }
     

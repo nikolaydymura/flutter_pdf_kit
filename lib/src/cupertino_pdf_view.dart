@@ -60,6 +60,14 @@ class CupertinoPdfViewController {
     await _channel.invokeMethod('goToPage', i);
   }
 
+  Future<void> goToPreviousPage() async {
+    await _channel.invokeMethod('goToPreviousPage');
+  }
+
+  Future<void> goToNextPage() async {
+    await _channel.invokeMethod('goToNextPage');
+  }
+
   Future<void> dispose() async {
     await _channel.invokeMethod('dispose');
   }

@@ -33,21 +33,43 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Plugin example app'),
-          ),
-          floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.arrow_forward),
-            onPressed: () {
-              controller?.goToPage(20);
-            },
-          ),
-          body: CupertinoPdfView.asset(
-            _asset,
-            onReady: (c) {
-              controller = c;
-            },
-          )),
+        appBar: AppBar(
+          title: const Text('Plugin example app'),
+        ),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              backgroundColor: Colors.blue.withOpacity(0.4),
+              splashColor: Colors.grey.withOpacity(0.05),
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.white.withOpacity(0.8),
+              ),
+              onPressed: () {
+                controller?.goToPreviousPage();
+              },
+            ),
+            FloatingActionButton(
+              backgroundColor: Colors.blue.withOpacity(0.4),
+              splashColor: Colors.grey.withOpacity(0.05),
+              child: Icon(
+                Icons.arrow_forward,
+                color: Colors.white.withOpacity(0.8),
+              ),
+              onPressed: () {
+                controller?.goToNextPage();
+              },
+            ),
+          ],
+        ),
+        body: CupertinoPdfView.asset(
+          _asset,
+          onReady: (c) {
+            controller = c;
+          },
+        ),
+      ),
     );
   }
 }
