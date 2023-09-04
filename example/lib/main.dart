@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:flutter_pdf_kit/flutter_pdf_kit.dart';
 
@@ -18,14 +19,17 @@ const _asset =
 
 class _MyAppState extends State<MyApp> {
   CupertinoPdfViewController? controller;
+  TextEditingController pageController = TextEditingController();
   @override
   void initState() {
     super.initState();
+    pageController;
   }
 
   @override
   void dispose() {
     controller?.dispose();
+    pageController.dispose();
     super.dispose();
   }
 
@@ -34,7 +38,63 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.blueAccent, Colors.purple],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
+          title: const FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text('Plugin example app'),
+          ),
+          actions: [
+            ConstrainedBox(
+              constraints: const BoxConstraints(minWidth: 24, maxWidth: 50),
+              child: TextField(
+                controller: pageController,
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                    RegExp(r'^[0-9]*'),
+                  ),
+                ],
+                decoration: InputDecoration(
+                  fillColor: Colors.white.withOpacity(0.4),
+                  filled: true,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 70),
+              child: OutlinedButton(
+                onPressed: () {
+                  setState(() {
+                    if (pageController.text.isNotEmpty) {
+                      controller?.goToPage(int.parse(pageController.text));
+                    }
+                    pageController.clear();
+                  });
+                },
+                child: const Text(
+                  'Open page',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+          ],
         ),
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
